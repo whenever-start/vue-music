@@ -1,32 +1,42 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view></router-view>
+    <player></player>
   </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Player from 'components/player/player'
 
-#nav {
-  padding: 30px;
+export default {
+  components: {
+    Player
+  },
+  methods: {
+    saveVuex() {
+      if (sessionStorage.getItem('store')) {
+        this.$store.replaceState(
+          Object.assign(
+            {},
+            this.$store.state,
+            JSON.parse(sessionStorage.getItem('store'))
+          )
+        )
+      }
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+      //在页面刷新时将vuex里的信息保存到sessionStorage里
+      window.addEventListener('beforeunload', () => {
+        sessionStorage.setItem('store', JSON.stringify(this.$store.state))
+      })
     }
+  },
+  created() {
+    this.saveVuex()
   }
 }
+</script>
+
+<style lang="less">
+@import '~assets/less/index.less';
+@import '~assets/less/style.less';
 </style>

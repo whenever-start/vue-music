@@ -1,0 +1,65 @@
+// 清除浮动
+.clearfix() {
+  zoom: 1;
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+  }
+}
+
+// 背景图片
+.bg-image(@url) {
+  background-image: url('~@{url}@2x.png');
+  @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+    background-image: url('~@{url}@3x.png');
+  }
+}
+
+//**
+// * @desc 文本多行文字截断
+// * @param {Number} @lines 行数
+// * @param {Number} @line-height 行高 当@lines=1的时候，@line-height默认传0，相当于截取的字节数
+// */
+.line-clamp(@lines, @line-height: 1.4em) {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: @lines * @line-height;
+
+  & when (@lines =1) {
+    white-space: nowrap;
+    width: 100% - @line-height;
+  }
+
+  & when not (@lines =1) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    -webkit-line-clamp: @lines;
+    line-clamp: @lines;
+    line-height: @line-height;
+    height: @line-height * @lines;
+  }
+}
+
+// 不换行
+.no-wrap() {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+// 扩展点击区域
+.extend-click() {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+  }
+}

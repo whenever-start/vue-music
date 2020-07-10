@@ -1,0 +1,97 @@
+@import './variable';
+@import './mixin';
+
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.home {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .view {
+    flex-grow: 1;
+  }
+}
+.pd-bottom-60 {
+  padding-bottom: 60px;
+}
+.tab {
+  width: 100%;
+  background-color: #fff;
+}
+
+// 推荐页面
+.recommend {
+  overflow-x: hidden;
+
+  .banner-thumb {
+    overflow: hidden;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  .show-module {
+    padding-left: @pd-base;
+    padding-right: @pd-base;
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: @pd-base 0;
+
+      .title {
+        color: #000;
+        font-size: @fs-xl;
+        font-weight: bold;
+      }
+
+      .more {
+        display: block;
+        padding: 6px 12px;
+        font-size: @fs-base;
+        color: @cl-text-ll;
+        border: 1px solid @cl-gray-ll;
+        border-radius: 999px;
+      }
+    }
+
+    &-cell {
+      .thumbnail {
+        overflow: hidden;
+        padding-bottom: 100%;
+        position: relative;
+        img {
+          position: absolute;
+          width: 100%;
+          left: 0;
+          top: 0;
+        }
+      }
+
+      .name {
+        font-size: @fs-base;
+        color: @cl-text;
+        .line-clamp(2);
+        margin-top: 8px;
+      }
+
+      .num {
+        display: block;
+        // margin-top: 4px;
+        color: @cl-assist;
+      }
+    }
+  }
+}
+
+.playlist {
+  height: 100%;
+}
