@@ -11,13 +11,13 @@
       :key="song.id"
       @click="selectItem(song, index)"
     >
-      <span class="rank">{{ index + 1 }}</span>
-      <div class="content">
-        <p class="name">
+      <span class="item-rank">{{ index + 1 }}</span>
+      <div class="item-content">
+        <p class="item-name">
           {{ song.name }}
           <span class="name-assist" v-if="song.alias">{{ song.alias }}</span>
         </p>
-        <p class="assist">{{ song.singer }}</p>
+        <p class="item-assist">{{ song.singer }}</p>
       </div>
       <i class="more-operate van-icon van-icon-ellipsis"></i>
     </li>
@@ -66,23 +66,23 @@ export default {
     }
 
     &--active {
-      .name {
+      .item-name {
         color: @cl-primary-l;
       }
     }
 
-    .rank {
+    .item-rank {
       width: 50px;
       flex-shrink: 0;
       text-align: center;
       color: @cl-assist;
     }
 
-    .content {
+    .item-content {
       flex-grow: 1;
       width: calc(100% - 100px);
 
-      .name {
+      .item-name {
         font-size: @fs-x;
         .line-clamp(1);
 
@@ -92,7 +92,7 @@ export default {
         }
       }
 
-      .assist {
+      .item-assist {
         margin-top: 10px;
         color: @cl-assist;
       }

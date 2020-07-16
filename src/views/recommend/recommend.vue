@@ -11,7 +11,12 @@
     >
       <!-- 轮播图 -->
       <base-slider v-if="this.banners.length > 0">
-        <div class="banner-thumb" v-for="item in banners" :key="item.bannerId">
+        <div
+          class="banner-thumb"
+          v-for="item in banners"
+          :key="item.bannerId"
+          @scroll.stop
+        >
           <img :src="item.pic" />
         </div>
       </base-slider>

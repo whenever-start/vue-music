@@ -137,6 +137,7 @@ export default {
   &-info {
     position: relative;
     height: 50%;
+    height: 300px;
     background-size: cover;
 
     .mask {

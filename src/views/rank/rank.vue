@@ -1,6 +1,6 @@
 <template>
   <div class="rank">
-    排行
+    <section class="rank-content"></section>
   </div>
 </template>
 
@@ -11,5 +11,3 @@ export default {
   components: {}
 }
 </script>
-
-<style lang="less" scoped></style>

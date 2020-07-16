@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <m-header />
-    <tab class="tab" />
+    <tab />
     <keep-alive>
       <router-view class="view" :class="cls"></router-view>
     </keep-alive>

@@ -89,5 +89,22 @@ export const apiUrl = {
    * @param type 0(默认): pc, 1: android, 2: iphone, 3: ipad
    * @example /banner?type=2
    */
-  banners: '/banner'
+  banners: '/banner',
+
+  /**
+   * 歌手分类列表
+   * @param cat(必选): 即 category Code,歌手类型,默认 1001,返回华语男歌手数据
+   * @param limit(可选) 默认30
+   * @param offset
+   * @param type(可选) -1 全部, 1 男歌手, 2 女歌手, 3 乐队
+   * @param area(可选) -1 全部, 7 华语, 96 欧美, 8 日本, 16 韩国, 0 其他
+   * @example /artist/list?type=1&area=96&initial=b /artist/list?type=2&area=2&initial=b
+   */
+  artistList: '/artist/list',
+
+  /**
+   * @param id(必须)
+   * @example /artists?id=6452
+   */
+  artists: '/artists'
 }

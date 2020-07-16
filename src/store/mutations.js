@@ -25,6 +25,13 @@ const mutations = {
 
   [types.SET_CUR_DURATION](state, duration) {
     state.curDuration = duration
+  },
+
+  [types.SET_CUR_SONG_LYRIC](state, lyric) {
+    state.playlist[state.curIndex].lyric = lyric
+  },
+  [types.SET_SINGER](state, singer) {
+    state.singer = singer
   }
 }
 

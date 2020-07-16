@@ -10,3 +10,5 @@ export const playing = (state) => state.playing
 export const duration = (state, getters) =>
   Math.floor(getters.curSong.duration / 1000) || 0 // 音频总时长, 单位: 秒 只读
 export const curDuration = (state) => state.curDuration
+
+export const singer = (state) => state.singer

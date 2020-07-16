@@ -19,12 +19,19 @@
     <section class="content" @click="toggleContentShow">
       <div class="cd-rotate-position" v-show="contentShow === 'cd'">
         <cd-rotate :image="curSong.image" :playing="playing"></cd-rotate>
+        <transition name="fade">
+          <p class="play-lyric">
+            {{ playLyric }}
+          </p>
+        </transition>
       </div>
 
       <div class="lyric-position" v-show="contentShow === 'lyric'">
         <player-lyric
           :lyric="curSong.lyric"
           :curTime="curDuration"
+          :playing="playing"
+          @lrc="getPlayLyric"
         ></player-lyric>
       </div>
     </section>
@@ -33,20 +40,19 @@
       <play-slider
         :duration="duration"
         :percent="percent"
+        :curTime="curTime"
         @change="seek"
         @drag-end="dragEnd"
       ></play-slider>
 
       <div class="controls">
         <i class="icon" :class="playModeIcon" @click="togglePlayMode"></i>
-        <!-- <i class="icon icon-prev" @click="skipTo({ direction: 'prev' })"></i> -->
         <i class="icon icon-prev" @click="skipTo('prev')"></i>
         <i
           class="controls-play van-icon"
           :class="`van-icon-${playing ? 'pause' : 'play'}-circle-o`"
           @click="togglePlaying"
         ></i>
-        <!-- <i class="icon icon-next" @click="skipTo({ direction: 'next' })"></i> -->
         <i class="icon icon-next" @click="skipTo('next')"></i>
         <i class="icon icon-playlist" @click.stop="toggle"></i>
       </div>
@@ -60,7 +66,7 @@ import PlayerLyric from './player-lyric'
 import CdRotate from './cd-rotate'
 import { playerMixin } from 'assets/js/mixin'
 import { mapMutations, mapGetters } from 'vuex'
-import { CODE_OK } from 'request/config'
+
 export default {
   mixins: [playerMixin],
   components: {
@@ -68,12 +74,22 @@ export default {
     PlayerLyric,
     CdRotate
   },
+  props: {
+    lyric: {
+      type: String,
+      default: ''
+    },
+    curTime: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
       percent: 0,
       show: false,
-      lyric: [],
-      contentShow: 'cd'
+      contentShow: 'cd',
+      playLyric: ''
     }
   },
   computed: {
@@ -81,7 +97,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setCurDuration: 'SET_CUR_DURATION'
+      setCurDuration: 'SET_CUR_DURATION',
+      setCurSongLyric: 'SET_CUR_SONG_LYRIC'
     }),
     seek(percent) {
       let duration = this.duration * (percent / 100)
@@ -94,32 +111,15 @@ export default {
     toggle() {
       this.$emit('toggle', !this.show)
     },
-    getLyric() {
-      this.$services
-        .lyric({
-          params: { id: this.curSong.id }
-        })
-        .then((res) => {
-          if (res.code === CODE_OK) {
-            this.curSong.lyric = res.lrc.lyric
-          }
-        })
-        .catch((error) => {
-          throw new Error(error)
-        })
-    },
     toggleContentShow() {
       this.contentShow = this.contentShow === 'cd' ? 'lyric' : 'cd'
-
-      if (this.contentShow === 'lyric') {
-        if (!this.curSong.lyric) {
-          this.getLyric()
-        }
-      }
+    },
+    getPlayLyric(txt) {
+      this.playLyric = txt
     }
   },
   watch: {
-    curDuration(newVal) {
+    curTime(newVal) {
       this.percent = newVal / this.duration
     }
   }
@@ -181,11 +181,26 @@ export default {
   }
 
   .content {
-    flex: auto;
+    flex: 1 0 0;
+    overflow: hidden;
 
     .cd-rotate-position {
       width: 80%;
-      margin: 30px auto 0;
+      margin: 70px auto 0;
+    }
+
+    .play-lyric {
+      line-height: 50px;
+      color: #fff;
+      margin-top: 10px;
+      text-align: center;
+      transition: 1s opacity;
+    }
+
+    .lyric-position {
+      height: 100%;
+      margin-top: 10px;
+      overflow: hidden;
     }
   }
 
@@ -209,5 +224,18 @@ export default {
       }
     }
   }
+}
+
+.fade-enter,
+.fade-leave {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  opacity: 0.5;
+}
+.fade-enter-to,
+.fade-leave-to {
+  opacity: 1;
 }
 </style>

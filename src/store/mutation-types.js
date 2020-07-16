@@ -7,3 +7,7 @@ export const SET_PLAY_MODE = 'SET_PLAY_MODE'
 export const SET_PLAYING_STATE = 'SET_PLAYING_STATE'
 
 export const SET_CUR_DURATION = 'SET_CUR_DURATION'
+
+export const SET_CUR_SONG_LYRIC = 'SET_CUR_SONG_LYRIC'
+
+export const SET_SINGER = 'SET_SINGER'

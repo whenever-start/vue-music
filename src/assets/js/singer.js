@@ -1,7 +1,20 @@
+import pinyin from 'tiny-pinyin'
 export default class Singer {
-  constructor({id, name}) {
+  constructor({ id, image, avatar, name, initial }) {
     this.id = id
+    this.image = image
+    this.avatar = avatar
     this.name = name
-    this.avatar = `https://y.gtimg.cn/music/photo_new/T001R300x300M000${id}.jpg?max_age=2592000`
+    this.initial = initial
   }
+}
+
+export const createSinger = (singerData) => {
+  return new Singer({
+    id: singerData.id,
+    image: singerData.picUrl,
+    avatar: singerData.img1v1Url,
+    name: singerData.name,
+    initial: pinyin.convertToPinyin(singerData.name)[0]
+  })
 }

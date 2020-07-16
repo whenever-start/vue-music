@@ -25,12 +25,16 @@ export default {
     duration: {
       type: Number,
       default: 0
+    },
+    curTime: {
+      type: Number,
+      default: 0
     }
   },
   computed: {
-    curTime() {
-      return (this.value * this.duration) / 100
-    }
+    // curTime() {
+    //   return (this.value * this.duration) / 100
+    // }
   },
   data() {
     return {

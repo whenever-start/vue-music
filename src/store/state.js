@@ -7,7 +7,8 @@ const state = {
   fullScreen: false,
   playMode: playMode.sequence,
   playing: false,
-  curDuration: 0
+  curDuration: 0,
+  singer: {}
 }
 
 export default state

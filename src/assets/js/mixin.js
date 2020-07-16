@@ -1,4 +1,4 @@
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { playMode } from 'assets/js/config'
 
 export const playerMixin = {
@@ -11,7 +11,8 @@ export const playerMixin = {
       'curIndex',
       'curSong',
       'playMode',
-      'playing'
+      'playing',
+      'singer'
     ]),
     playModeIcon() {
       let cls = ''
@@ -37,6 +38,18 @@ export const playerMixin = {
     }
   },
   methods: {
+    ...mapMutations({
+      setPlayList: 'SET_PLAYLIST',
+      setSequenceList: 'SET_SEQUENCE_LIST',
+      setDisc: 'SET_DISC',
+      setFullScreen: 'SET_FULL_SCREEN',
+      setCurIndex: 'SET_CUR_INDEX',
+      setPlayMode: 'SET_PLAY_MODE',
+      setPlayingState: 'SET_PLAYING_STATE',
+      setCurDuration: 'SET_CUR_DURATION',
+      setCurSongLyric: 'SET_CUR_SONG_LYRIC',
+      setSinger: 'SET_SINGER'
+    }),
     ...mapActions([
       'selectPlay',
       'randomPlay',

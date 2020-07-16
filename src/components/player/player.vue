@@ -2,14 +2,13 @@
   <div class="player" v-if="playlist.length > 0">
     <normal-player
       v-show="fullScreen"
+      :curTime="curTime"
       @seek="onSeek"
       @toggle="togglePopup"
     ></normal-player>
 
     <mini-player v-show="!fullScreen" @toggle="togglePopup"></mini-player>
 
-    <!-- controls
-      style="position: fixed;top:200px;left:0;zIndex: 3000" -->
     <audio
       :src="source"
       ref="audio"
@@ -35,8 +34,8 @@
 import NormalPlayer from './normal-player'
 import MiniPlayer from './mini-player'
 import PlayerPlaylist from 'components/player-playlist/player-playlist'
-import { mapMutations } from 'vuex'
 import { playerMixin } from 'assets/js/mixin'
+import { CODE_OK } from 'request/config'
 
 export default {
   components: {
@@ -49,7 +48,8 @@ export default {
     return {
       songReady: false,
       timer: null,
-      show: false
+      show: false,
+      curTime: 0
     }
   },
   computed: {
@@ -59,19 +59,15 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
-      setPlayingState: 'SET_PLAYING_STATE',
-      setCurDuration: 'SET_CUR_DURATION'
-    }),
     onReady() {
       this.songReady = true
     },
     onEnd() {
-      this.next()
+      this.skipTo('next')
     },
     onError() {
-      console.log(this.curSong)
-      this.next()
+      console.error('加载失败: ', this.curSong)
+      this.skipTo('next')
     },
     onStalled() {
       this.$refs.audio.load()
@@ -80,28 +76,10 @@ export default {
     onSeek(duration) {
       this.$refs.audio.currentTime = duration
     },
-    next() {
-      this._initState()
-      this.skipTo('next')
-    },
-    prev() {
-      this._initState()
-      this.skipTo('prev')
-    },
     updateTime(e) {
-      let currentTime = Math.floor(e.target.currentTime)
-      this.setCurDuration(currentTime)
+      this.curTime = Math.floor(e.target.currentTime)
     },
-    togglePopup(show) {
-      this.show = show
-    },
-    _initState() {
-      this.songReady = false
-      this.setPlayingState(false)
-    }
-  },
-  watch: {
-    source() {
+    play() {
       clearInterval(this.timer)
       this.timer = setInterval(() => {
         if (this.songReady) {
@@ -110,11 +88,41 @@ export default {
         }
       }, 500)
     },
-    playing(newVal) {
+    togglePopup(show) {
+      this.show = show
+    },
+    _getLyric() {
+      // 已有歌词, 或者还未有当前播放歌曲, 则不获取歌词
+      if (!!this.curSong.lyric || !this.curSong.id) return
+
+      this.$services
+        .lyric({
+          params: { id: this.curSong.id }
+        })
+        .then((res) => {
+          if (res.code === CODE_OK) {
+            this.setCurSongLyric(res.lrc.lyric)
+          }
+        })
+        .catch((error) => {
+          throw new Error(error)
+        })
+    }
+  },
+  created() {
+    this.setPlayingState(false)
+    this._getLyric()
+  },
+  watch: {
+    source() {
+      this._getLyric()
+      this.play()
+    },
+    playing(playing) {
       const audio = this.$refs.audio
       if (!audio) return
       this.$nextTick(() => {
-        newVal ? audio.play() : audio.pause()
+        playing ? audio.play() : audio.pause()
       })
     }
   }

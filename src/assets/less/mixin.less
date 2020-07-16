@@ -27,6 +27,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   height: @lines * @line-height;
+  line-height: @line-height;
 
   & when (@lines =1) {
     white-space: nowrap;
@@ -39,7 +40,6 @@
     box-orient: vertical;
     -webkit-line-clamp: @lines;
     line-clamp: @lines;
-    line-height: @line-height;
     height: @line-height * @lines;
   }
 }
