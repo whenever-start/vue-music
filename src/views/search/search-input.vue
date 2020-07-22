@@ -67,11 +67,9 @@ export default {
     onInput(e) {
       if (this.isOnComposition) return
       let value = e.target.value
-      if (value.trim() !== '') {
-        this.show = true
-      } else {
-        this.show = false
-      }
+
+      this.show = value.trim() !== '' ? true : false
+
       this.$emit('input', value.trim())
     },
     onChange(e) {

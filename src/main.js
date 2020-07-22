@@ -23,12 +23,7 @@ Vue.use(VueLazyload, {
 // api
 import './request'
 
-Vue.prototype.$log = window.console.log
-
 Vue.config.productionTip = false
-
-// import fastclick from 'fastclick'
-// fastclick.attach(document.body)
 
 new Vue({
   router,
