@@ -29,6 +29,7 @@ export const apiUrl = {
    * 获取歌单详情
    * @param id(必选) 歌单 id
    * @example /playlist/detail?id=24381616
+   * @returns res.playlist.tracks
    */
   playlistDetail: '/playlist/detail',
 
@@ -102,9 +103,38 @@ export const apiUrl = {
    */
   artistList: '/artist/list',
 
-  /**
+  /**歌手详情
    * @param id(必须)
    * @example /artists?id=6452
    */
-  artists: '/artists'
+  artists: '/artists',
+
+  /**排行榜
+   * @example /toplist/detail
+   */
+  rank: '/toplist/detail',
+
+  /**
+   * @example /search/hot/detail
+   * @returns res.data
+   */
+  searchHotDetail: '/search/hot/detail',
+
+  /**搜索建议
+   * @param keywords(必须) 搜索关键词
+   * @param type(可选) mobile 返回移动端数据
+   * @example /search/suggest?keywords= 海阔天空&type=mobile
+   * @returns res.result.allMatch
+   */
+  searchSuggest: '/search/suggest',
+
+  /**搜索结果
+   * @param keywords(必须) 搜索关键词
+   * @param limit 返回数量
+   * @param offset 偏移量(分页)
+   * @param type {1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018:综合}
+   * @example /search?keywords= 海阔天空
+   * @returns res.result => {songs: 搜索结果(30首), hasMore: 是否更多, songCount: 数量}
+   */
+  search: '/search'
 }

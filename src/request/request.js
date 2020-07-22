@@ -15,9 +15,7 @@ const instance = axios.create({
   // baseURL: process.env.BASE_URL,
   timeout: 30000, // 请求超时时间
 
-  // baseURL: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000',
-  baseURL:
-    process.env.NODE_ENV === 'production' ? '' : 'http://169.254.241.136:3000',
+  baseURL: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000',
 
   // `transformRequest` 允许在向服务器发送前，修改请求数据
   transformRequest: [

@@ -12,7 +12,8 @@ export const playerMixin = {
       'curSong',
       'playMode',
       'playing',
-      'singer'
+      'singer',
+      'rank'
     ]),
     playModeIcon() {
       let cls = ''
@@ -59,5 +60,21 @@ export const playerMixin = {
       'togglePlayerScreen',
       'togglePlayMode'
     ])
+  }
+}
+
+export const searchMixin = {
+  computed: {
+    ...mapGetters(['query', 'hots', 'suggests', 'histories', 'results'])
+  },
+  methods: {
+    ...mapMutations({
+      setQuery: 'SET_QUERY',
+      setHots: 'SET_HOTS',
+      setSuggests: 'SET_SUGGESTS',
+      setHistories: 'SET_HISTORIES',
+      setResults: 'SET_RESULTS',
+      clearHistories: 'CLEAR_HISTORIES'
+    })
   }
 }

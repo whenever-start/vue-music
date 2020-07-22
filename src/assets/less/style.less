@@ -261,5 +261,143 @@ body,
 }
 
 .rank {
-  background-color: pink;
+  &-content {
+    padding: 0 20px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .rank-list {
+      
+      &-item {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+  
+        &:first-child {
+          margin-top: 0;
+        }
+
+        .rank-image {
+          flex: none;
+          width: 100px;
+          height: 100px;
+          position: relative;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+
+          &-info {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            color: #fff;
+          }
+        }
+
+        .rank-item-list {
+          flex: 1 0 0;
+          overflow: hidden;
+          margin-left: 10px;
+          
+          .list {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100px;
+            color: @cl-text-ll;
+          }
+        }
+      }
+    }
+  }
+}
+
+.page-search {
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+
+  &-head {
+    flex: none;
+  }
+
+  &-main {
+    margin-top: 20px;
+    flex: 1 0 0;
+    overflow-y: auto;
+  }
+
+  .search-input {
+    @input-pd: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &-back {
+      flex: none;
+      font-size: 20px;
+    }
+    
+    .input-box {
+      flex: 1 0 0;
+      position: relative;
+      width: 100%;
+      height: 40px;
+      margin-left: 10px;
+      border-bottom: 1px solid @cl-gray-ll;
+
+      .input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        padding: 0 @input-pd + 26;
+
+        &::placeholder {
+          color: @cl-assist-ll;
+        }
+      }
+
+      .input-icon {
+        font-size: 22px;
+        color: @cl-assist-l;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .icon-search {
+        left: @input-pd;
+      }
+      .icon-dismiss {
+        right: @input-pd;
+      }
+    }
+
+    .search-suggest {
+      position: absolute;
+      left: 0;
+      top: 50px;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0px 0px 9px #aaa;
+      &-head {
+        padding: 0 10px;
+        line-height: 44px;
+        color: @cl-text-ll;
+      }
+
+      .suggest-list {
+        &-item {
+          padding: 0 10px;
+          line-height: 44px;
+          color: @cl-assist;
+          border-top: 1px solid #f2f2f2;
+        }
+      }
+    }
+  }
 }

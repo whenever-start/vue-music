@@ -11,7 +11,7 @@
         @click="selectItem(singer, index)"
       >
         <div class="avatar">
-          <img :src="singer.avatar" alt="" />
+          <img v-lazy="singer.avatar" />
         </div>
         <p class="name">{{ singer.name }}</p>
       </li>

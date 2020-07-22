@@ -43,6 +43,11 @@ const routes = [
     path: '/singer-detail',
     name: 'SingerDetail',
     component: () => import('../views/singer/singer-detail')
+  },
+  {
+    path: '/top',
+    name: 'Top',
+    component: () => import('../views/rank/top-list')
   }
 ]
 

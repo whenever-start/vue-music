@@ -11,7 +11,7 @@
 <script>
 import PlaylistDetail from 'components/playlist-detail/playlist-detail.vue'
 import { mapGetters } from 'vuex'
-import { createSong } from 'assets/js/song'
+import { formatSongs } from 'assets/js/song'
 import { CODE_OK } from 'request/config'
 
 export default {
@@ -25,7 +25,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['disc', 'playlist']),
+    ...mapGetters(['disc']),
     bgImage() {
       return this.disc.picUrl
     },
@@ -42,19 +42,10 @@ export default {
         .then((res) => {
           if (res.code === CODE_OK) {
             console.log('list: ', res.playlist.tracks)
-            this.songs = this._normalizeSongs(res.playlist.tracks)
+            this.songs = formatSongs(res.playlist.tracks)
           }
         })
         .catch((err) => console.log(err))
-    },
-    _normalizeSongs(list) {
-      let arr = []
-      list.forEach((data) => {
-        if (data.id) {
-          arr.push(createSong(data))
-        }
-      })
-      return arr
     }
   },
   beforeRouteEnter(to, from, next) {

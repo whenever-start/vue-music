@@ -1,6 +1,3 @@
-/**
- * class Song
- */
 export default class Song {
   constructor({ id, name, singer, alias, album, duration, image, url }) {
     this.id = id
@@ -13,25 +10,6 @@ export default class Song {
     this.url = url
     this.lyric = ''
   }
-
-  // getLyric() {
-  //   if (this.lyric) return Promise.resolve(this.lyric)
-
-  //   return new Promise((resolve, reject) => {
-  //     services
-  //       .lyric({
-  //         params: { id: this.id }
-  //       })
-  //       .then((res) => {
-  //         if (res.code === CODE_OK) {
-  //           this.lyric = res.lyric
-  //           resolve(this.lyric)
-  //         } else {
-  //           reject('没有歌词')
-  //         }
-  //       })
-  //   })
-  // }
 }
 
 export const createSong = (data) => {
@@ -49,13 +27,23 @@ export const createSong = (data) => {
   })
 }
 
-function mergeSinger(artists) {
+export const formatSongs = (list) => {
+  let arr = []
+  list.forEach((data) => {
+    if (data.id) {
+      arr.push(createSong(data))
+    }
+  })
+  return arr
+}
+
+export const mergeSinger = (artists) => {
   if (artists.length === 0) return ''
   let arr = []
   artists.forEach((item) => arr.push(item.name))
   return arr.join(' / ')
 }
-function mergeAlias(alias) {
+export const mergeAlias = (alias) => {
   if (alias.length === 0) return ''
   let arr = []
   alias.forEach((name) => arr.push(`(${name})`))

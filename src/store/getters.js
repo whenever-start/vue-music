@@ -6,9 +6,15 @@ export const curIndex = (state) => state.curIndex
 export const curSong = (state) => state.playlist[state.curIndex] || {}
 export const playMode = (state) => state.playMode
 export const playing = (state) => state.playing
-
 export const duration = (state, getters) =>
   Math.floor(getters.curSong.duration / 1000) || 0 // 音频总时长, 单位: 秒 只读
 export const curDuration = (state) => state.curDuration
-
 export const singer = (state) => state.singer
+export const rank = (state) => state.rank
+
+// search
+export const query = (state) => state.query
+export const hots = (state) => state.hots
+export const suggests = (state) => state.suggests
+export const histories = (state) => state.histories
+export const results = (state) => state.results

@@ -6,9 +6,11 @@ import store from './store'
 import { Loadmore } from 'mint-ui'
 Vue.component(Loadmore.name, Loadmore)
 
-import { Popup, Slider } from 'vant'
+import { Popup, Slider, Icon, Loading } from 'vant'
 Vue.use(Popup)
 Vue.use(Slider)
+Vue.use(Icon)
+Vue.use(Loading)
 // Vue.use(Loadmore)
 
 import VueLazyload from 'vue-lazyload'
